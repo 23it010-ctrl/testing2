@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expo Themes</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0f1a;
+      font-family: 'Orbitron', sans-serif;
+      overflow-x: hidden;
+      color: #eee;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00f0ff, #a020f0);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00f0ff, 0 0 25px #a020f0;
+    }
+
+    /* Event Section */
+    #event {
+      position: relative;
+      padding: 100px 5% 120px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    #event h2 {
+      font-size: 3rem;
+      margin-bottom: 60px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #00f0ff, #a020f0, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      justify-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .theme-box {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid transparent;
+      border-radius: 18px;
+      padding: 35px 25px;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+      cursor: pointer;
+      transition: transform 0.4s ease, border 0.4s ease, box-shadow 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .theme-box h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #00f0ff;
+      transition: color 0.4s ease;
+    }
+
+    .theme-box p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    .theme-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 2px;
+      background: linear-gradient(135deg, #00f0ff, #a020f0, #ff007f);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .theme-box:hover {
+      transform: translateY(-12px) scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.4),
+                  0 0 50px rgba(160, 32, 240, 0.3);
+    }
+
+    .theme-box:hover::before {
+      opacity: 1;
+    }
+
+    .theme-box:hover h3 {
+      color: #ff007f;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      #event h2 {
+        font-size: 2.4rem;
+      }
+      .theme-box {
+        max-width: 90%;
+      }
+    }
+
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: radial-gradient(circle at top, #111 0%, #000 100%);
+    }
+
+    .one header {
+      position: absolute;
+      top: 110%;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+    }
+    header h1{
+      color: goldenrod;
+    }
+
+    .box1 {
+      background: rgba(0,0,0,0.6);
+      border: 2px solid #000;
+      border-radius: 10px;
+      padding: 40px 40px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .prize-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      padding: 10%;
+      position: relative;
+      z-index: 5;
+    }
+
+    .prize-box {
+      border: 2px solid #0c5eb4;
+      background: rgba(0,0,0,0.9);
+      border-radius: 10px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .prize-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00f0ff, 0 0 30px #a020f0;
+    }
+
+    .prize-box h2 {
+      color: #00f0ff;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .prize-box ul {
+      list-style: none;
+      text-align: center;
+      color: #ccc;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .prize-container {
+        margin-top: 30%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Back to Home Button -->
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Home</button>
+
+  <!-- Animated Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Event Section -->
+  <section id="event">
+    <h2>Expo Themes</h2>
+
+    <div class="grid-container">
+      <div class="theme-box">
+        <h3>IoT (Internet of Things)</h3>
+        <p>Smart home devices, sensor networks, automation systems, and wearable tech.</p>
+      </div>
+      <div class="theme-box">
+        <h3>Mobile App Development</h3>
+        <p>Android & iOS apps, social apps, utilities, AR/VR experiences, and gaming.</p>
+      </div>
+      <div class="theme-box">
+        <h3>Web Development</h3>
+        <p>Modern websites, progressive web apps, responsive designs, and interactive UIs.</p>
+      </div>
+      <div class="theme-box">
+        <h3>AI/ML</h3>
+        <p>Machine learning projects, chatbots, predictive analytics, and AI-based solutions.</p>
+      </div>
+      <div class="theme-box">
+        <h3>Open Innovation</h3>
+        <p>Creative problem-solving, futuristic projects, and out-of-the-box thinking.</p>
+      </div>
+    </div><br>
+    <h1 style="color: yellow;">Scroll down</h1>
+  </section>
+
+  <!-- Prizes Section -->
+  <section id="Prizes">
+    <div class="one">
+      <header>
+        <div class="box1">
+          <h1>Winning prize for the Project Expo</h1>
+        </div>
+      </header>
+    </div>
+
+    <div class="prize-container">
+      <div class="prize-box">
+        <h2>First Prize</h2>
+        <ul>
+          <li><img src="https://png.pngtree.com/png-vector/20220731/ourmid/pngtree-gold-medal-1st-place-award-icon-png-image_6093703.png" height="50" width="50"></li>
+          <li>&#8377;10,000</li>
+        </ul>
+      </div>
+
+      <div class="prize-box">
+        <h2>Second Prize</h2>
+        <ul>
+          <li><img src="https://png.pngtree.com/png-vector/20220731/ourmid/pngtree-silver-medal-2nd-place-award-icon-png-image_6093704.png" height="50" width="50"></li>
+          <li>&#8377;5,000</li>
+        </ul>
+      </div>
+
+      <div class="prize-box">
+        <h2>Third Prize</h2>
+        <ul>
+          <li><img src="https://png.pngtree.com/png-vector/20220731/ourmid/pngtree-3rd-place-bronze-medal-award-icon-png-image_6093735.png" height="50" width="50"></li>
+          <li>&#8377;2,500</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5,
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: (Math.random() - 0.5) * 0.5
+        });
+      }
+    }
+    createStars(120);
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.x += star.dx;
+        star.y += star.dy;
+
+        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
+        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+  </script>
+</body>
+</html>
